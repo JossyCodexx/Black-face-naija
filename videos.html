@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5" />
+    <title>Black-face-naija Music Hub · Upload Your Videos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/videos.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background: #0b0b0f;
+            color: #eee;
+            scroll-behavior: smooth;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a24;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6c5ce7;
+            border-radius: 10px;
+        }
+
+        .btn-primary {
+            background: #6c5ce7;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-primary:hover {
+            background: #5a4bd1;
+            transform: scale(1.02);
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 5%;
+            background: rgba(11, 11, 15, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #2a2a3a;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            font-weight: 500;
+        }
+        .nav-links a {
+            padding: 6px 0;
+            border-bottom: 2px solid transparent;
+            transition: 0.2s;
+            color: #ccc;
+        }
+        .nav-links a:hover {
+            border-bottom-color: #6c5ce7;
+            color: #fff;
+        }
+        .nav-links a.active {
+            border-bottom-color: #6c5ce7;
+            color: #fff;
+        }
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            position: relative;
+            padding: 80px 5% 70px;
+            border-radius: 0 0 40px 40px;
+            min-height: 450px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        .hero-bg-image {
+            position: absolute;
+            inset: 0;
+            background: url('./images/video-hero.jpg') center/cover no-repeat;
+            z-index: 0;
+            filter: brightness(0.35) saturate(0.8);
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(11, 11, 15, 0.7) 30%, rgba(108, 92, 231, 0.15) 100%);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+        }
+        .hero h1 {
+            font-size: clamp(2.8rem, 8vw, 4.8rem);
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.85;
+            max-width: 550px;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+        }
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .hero-stats span {
+            font-size: 1rem;
+            opacity: 0.9;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 18px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .hero-stats i {
+            color: #6c5ce7;
+            margin-right: 8px;
+        }
+
+        section {
+            padding: 30px 5%;
+        }
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .video-card {
+            background: #181825;
+            border-radius: 20px;
+            padding: 16px;
+            transition: 0.25s;
+            border: 1px solid #2c2c3e;
+            position: relative;
+        }
+        .video-card:hover {
+            transform: translateY(-4px);
+            border-color: #6c5ce7;
+        }
+        .video-card .card-video {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            border-radius: 16px;
+            background: #2a2a3a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #6c5ce7;
+            background: #1a1a2a;
+            border: 2px dashed #3a3a52;
+            position: relative;
+            overflow: hidden;
+        }
+        .video-card .card-video.has-video {
+            border: none;
+        }
+        .video-card .card-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+        .video-card .card-video .play-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: 0.3s;
+            border-radius: 16px;
+            cursor: pointer;
+        }
+        .video-card .card-video:hover .play-overlay {
+            opacity: 1;
+        }
+        .video-card .card-video .play-overlay i {
+            font-size: 3.5rem;
+            color: white;
+            text-shadow: 0 0 30px rgba(108, 92, 231, 0.8);
+        }
+        .video-card .card-video .play-overlay.playing i {
+            color: #6c5ce7;
+            text-shadow: 0 0 40px rgba(108, 92, 231, 0.9);
+        }
+        .video-card h4 {
+            margin-top: 12px;
+            font-size: 1rem;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .video-card p {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            color: #ccc;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .card-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            align-items: center;
+        }
+        .badge {
+            background: #2d2d42;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            color: #ccc;
+        }
+        .upload-btn-small {
+            background: #6c5ce7;
+            border: none;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .upload-btn-small:hover {
+            background: #5a4bd1;
+        }
+
+        .upload-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .upload-modal.active {
+            display: flex;
+        }
+        .upload-modal-content {
+            background: #1c1c2a;
+            max-width: 500px;
+            width: 92%;
+            padding: 30px;
+            border-radius: 28px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .upload-modal-content h2 {
+            color: #fff;
+            margin-bottom: 16px;
+        }
+        .upload-modal-content h2 i {
+            color: #6c5ce7;
+            margin-right: 10px;
+        }
+        .upload-modal-content label {
+            color: #ccc;
+            font-size: 0.85rem;
+            display: block;
+            margin-top: 12px;
+            margin-bottom: 4px;
+        }
+        .upload-modal-content input,
+        .upload-modal-content textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: none;
+            background: #0f0f1a;
+            color: #fff;
+            border-radius: 12px;
+            outline: none;
+            border: 1px solid #2a2a3e;
+        }
+        .upload-modal-content textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+        .file-upload-area {
+            border: 2px dashed #6c5ce7;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            color: #aaa;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 8px;
+        }
+        .file-upload-area:hover {
+            background: #1a1a2a;
+            border-color: #a29bfe;
+        }
+        .file-upload-area i {
+            font-size: 2rem;
+            color: #6c5ce7;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .file-upload-area input {
+            display: none;
+        }
+        .upload-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 12px 0;
+        }
+        .upload-preview video {
+            max-width: 100%;
+            border-radius: 12px;
+            background: #0f0f1a;
+        }
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .modal-actions .btn-primary {
+            flex: 1;
+        }
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid #444;
+            padding: 10px 22px;
+            border-radius: 40px;
+            color: #ccc;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-secondary:hover {
+            background: #2a2a3e;
+        }
+
+        footer {
+            background: #0e0e16;
+            padding: 40px 5% 20px;
+            border-top: 1px solid #222;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 30px;
+        }
+        .footer-grid h4 {
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .footer-grid p {
+            color: #ccc;
+            opacity: 0.7;
+            margin: 4px 0;
+        }
+        .social i {
+            font-size: 1.6rem;
+            margin-right: 16px;
+            opacity: 0.7;
+            transition: 0.2s;
+            cursor: pointer;
+            color: #ccc;
+        }
+        .social i:hover {
+            opacity: 1;
+            color: #6c5ce7;
+        }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            opacity: 0.3;
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+
+        .now-playing-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(20, 20, 30, 0.95);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid #6c5ce7;
+            padding: 12px 5%;
+            display: none;
+            align-items: center;
+            gap: 20px;
+            z-index: 50;
+            flex-wrap: wrap;
+        }
+        .now-playing-bar.active {
+            display: flex;
+        }
+        .now-playing-bar .np-info {
+            flex: 2;
+            min-width: 150px;
+        }
+        .now-playing-bar .np-info strong {
+            color: #fff;
+        }
+        .now-playing-bar .np-info span {
+            color: #ccc;
+            opacity: 0.7;
+            margin-left: 8px;
+        }
+        .now-playing-bar .np-controls {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        .now-playing-bar .np-controls button {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .now-playing-bar .np-controls button:hover {
+            color: #6c5ce7;
+        }
+        .now-playing-bar .np-progress {
+            flex: 1;
+            min-width: 100px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .now-playing-bar .np-progress input[type="range"] {
+            flex: 1;
+            height: 4px;
+            -webkit-appearance: none;
+            background: #3a3a52;
+            border-radius: 10px;
+            outline: none;
+        }
+        .now-playing-bar .np-progress input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #6c5ce7;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .now-playing-bar .np-close {
+            background: none;
+            border: none;
+            color: #ff6b6b;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 6px;
+                margin-top: 12px;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+            }
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .upload-modal-content {
+                padding: 20px;
+                margin: 10px;
+            }
+            .hero {
+                padding: 60px 5% 50px;
+                min-height: 350px;
+            }
+            .now-playing-bar {
+                padding: 10px 5%;
+                gap: 12px;
+            }
+        }
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .video-card {
+                padding: 10px;
+            }
+            .hero {
+                padding: 40px 5% 30px;
+                min-height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+   
+    <!-- ========== NAV ========== -->
+    <nav>
+        <div class="logo"><i class="fas fa-music" style="background:transparent; -webkit-text-fill-color:#6c5ce7;"></i> Black-face-naija</div>
+        <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')"><i class="fas fa-bars"></i></div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="music.html">Music</a>
+            <a href="videos.html">Videos</a>
+            <a href="albums.html">Albums</a>
+            <a href="song-details.html">Song-Details</a>
+            <a href="artists.html">Artists</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="upload.html">Upload</a>
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-actions">
+            <i class="fas fa-search" style="opacity:0.6; font-size:1.3rem; color:#fff;"></i>
+        </div>
+    </nav>
+
+
+
+    
+    
+    <!-- ===== NAV OVERLAY ===== -->
+    <div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
+
+    <!-- ===== FLOATING BUTTONS ===== -->
+    <button class="chat-btn" aria-label="Live Chat" onclick="toggleChat()">
+        <i class="fas fa-comments"></i>
+    </button>
+
+    <a href="https://wa.me/15551234567" class="whatsapp-btn" aria-label="WhatsApp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+
+
+
+
+
+    <!-- ========== HERO WITH VIDEO BACKGROUND ========== -->
+    <section id="home" class="hero">
+        <div class="hero-bg-image"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>🎬 Your Video Gallery</h1>
+            <p>Upload, manage, and play your own video collection. 20 cards ready for your videos.</p>
+            <div class="hero-stats">
+                <span><i class="fas fa-video"></i> <span id="videoCount">0</span> videos</span>
+                <span><i class="fas fa-cloud-upload-alt"></i> Upload your own</span>
+                <span><i class="fas fa-play"></i> Click to play</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== LIBRARY ========== -->
+    <section id="library">
+        <div class="section-title"><i class="fas fa-film"></i> My Video Gallery</div>
+        <div class="grid" id="videoGrid">
+            <!-- 20 cards will be generated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- ========== UPLOAD MODAL ========== -->
+    <div class="upload-modal" id="uploadModal">
+        <div class="upload-modal-content">
+            <h2><i class="fas fa-upload"></i> Upload Your Video</h2>
+            <form id="uploadForm">
+                <label>Video Title *</label>
+                <input type="text" id="videoTitle" placeholder="Enter video title" required />
+
+                <label>Creator/Artist *</label>
+                <input type="text" id="creatorName" placeholder="Enter creator name" required />
+
+                <label>Category</label>
+                <input type="text" id="categoryName" placeholder="e.g. Music Video, Vlog, Tutorial" />
+
+                <label>Description</label>
+                <textarea id="descName" placeholder="Optional description"></textarea>
+
+                <label>Video File (MP4/WebM) *</label>
+                <div class="file-upload-area" onclick="document.getElementById('videoInput').click()">
+                    <i class="fas fa-video"></i>
+                    <span>Click to upload video file</span>
+                    <input type="file" id="videoInput" accept="video/*" required />
+                </div>
+
+                <div class="upload-preview" id="uploadPreview"></div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeUploadModal()">Cancel</button>
+                    <button type="button" class="btn-primary" onclick="handleUpload()"><i class="fas fa-check"></i> Upload Video</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== NOW PLAYING BAR ========== -->
+    <div class="now-playing-bar" id="nowPlayingBar">
+        <div class="np-info">
+            <strong id="npTitle">Video Title</strong>
+            <span id="npCreator">Creator</span>
+        </div>
+        <div class="np-controls">
+            <button onclick="togglePlayPause()"><i class="fas fa-play" id="npPlayPauseBtn"></i></button>
+            <button onclick="stopPlayback()"><i class="fas fa-stop"></i></button>
+        </div>
+        <div class="np-progress">
+            <span id="npCurrentTime">0:00</span>
+            <input type="range" id="npProgressBar" min="0" max="100" value="0" />
+            <span id="npDuration">0:00</span>
+        </div>
+        <button class="np-close" onclick="stopPlayback()"><i class="fas fa-times"></i></button>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h4>Black-face-naija Hub</h4>
+                <p>Your video gallery</p>
+                <p>© 2026</p>
+            </div>
+            <div>
+                <h4>Quick Links</h4>
+                <p>Home</p>
+                <p>My Videos</p>
+                <p>Upload</p>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <p>Help</p>
+                <p>Contact</p>
+                <p>FAQ</p>
+            </div>
+            <div class="social">
+                <h4>Follow Us</h4>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-youtube"></i>
+                <i class="fab fa-tiktok"></i>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Premium downloads · Paystack · Flutterwave · Stripe
+        </div>
+    </footer>
+
+    <script>
+        // ===== STATE =====
+        let videos = [];
+        let currentCardIndex = null;
+        let videoPlayer = null;
+        let currentPlayingIndex = null;
+        let isPlaying = false;
+
+        // ===== LOCAL STORAGE =====
+        function saveVideos() {
+            try {
+                const data = videos.map(video => {
+                    if (!video) return null;
+                    return {
+                        title: video.title,
+                        creator: video.creator,
+                        category: video.category,
+                        description: video.description,
+                        duration: video.duration,
+                        videoData: video.videoData || null
+                    };
+                });
+                localStorage.setItem('melodyVideos', JSON.stringify(data));
+                console.log('✅ Videos saved to localStorage');
+            } catch (e) {
+                console.warn('Could not save to localStorage:', e);
+            }
+        }
+
+        function loadVideos() {
+            try {
+                const data = localStorage.getItem('melodyVideos');
+                if (!data) return false;
+                const parsed = JSON.parse(data);
+                if (!Array.isArray(parsed)) return false;
+                
+                videos = parsed.map((videoData, index) => {
+                    if (!videoData) return null;
+                    const video = {
+                        title: videoData.title || `Empty Slot ${index+1}`,
+                        creator: videoData.creator || 'No creator',
+                        category: videoData.category || 'Unknown',
+                        description: videoData.description || '',
+                        duration: videoData.duration || '0:00',
+                        videoData: videoData.videoData || null,
+                        videoUrl: null
+                    };
+                    if (video.videoData) {
+                        video.videoUrl = video.videoData;
+                    }
+                    return video;
+                });
+                console.log('✅ Videos loaded from localStorage:', videos.filter(v => v && v.title).length, 'videos');
+                return true;
+            } catch (e) {
+                console.warn('Could not load from localStorage:', e);
+                return false;
+            }
+        }
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // ===== CREATE 20 EMPTY CARDS =====
+        function createEmptyCards() {
+            const grid = document.getElementById('videoGrid');
+            grid.innerHTML = '';
+            for (let i = 0; i < 20; i++) {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.dataset.index = i;
+                card.innerHTML = `
+                    <div class="card-video" id="cardVideo_${i}">
+                        <i class="fas fa-video"></i>
+                        <div class="play-overlay" onclick="togglePlay(${i})">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                    </div>
+                    <h4 id="cardTitle_${i}">Empty Slot ${i+1}</h4>
+                    <p id="cardCreator_${i}">No creator</p>
+                    <div class="card-actions">
+                        <span class="badge" id="cardBadge_${i}">0:00</span>
+                        <button class="upload-btn-small" onclick="openUploadModal(${i})">
+                            <i class="fas fa-upload"></i> Upload
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            }
+            updateVideoCount();
+        }
+
+        // ===== RENDER ALL CARDS =====
+        function renderAllCards() {
+            for (let i = 0; i < 20; i++) {
+                const video = videos[i];
+                const cardVideo = document.getElementById(`cardVideo_${i}`);
+                const cardTitle = document.getElementById(`cardTitle_${i}`);
+                const cardCreator = document.getElementById(`cardCreator_${i}`);
+                const cardBadge = document.getElementById(`cardBadge_${i}`);
+
+                if (video && video.title && video.title !== `Empty Slot ${i+1}`) {
+                    cardTitle.textContent = video.title;
+                    cardCreator.textContent = video.creator + (video.category ? ` · ${video.category}` : '');
+                    cardBadge.textContent = video.duration || '0:00';
+
+                    if (video.videoUrl) {
+                        cardVideo.innerHTML = `
+                            <video src="${video.videoUrl}" id="video_${i}" muted></video>
+                            <div class="play-overlay" onclick="togglePlay(${i})">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                        `;
+                        cardVideo.classList.add('has-video');
+                    } else {
+                        cardVideo.innerHTML = `
+                            <i class="fas fa-video"></i>
+                            <div class="play-overlay" onclick="togglePlay(${i})">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                        `;
+                        cardVideo.classList.remove('has-video');
+                    }
+
+                    const actions = cardVideo.parentElement.querySelector('.card-actions');
+                    const uploadBtn = actions.querySelector('.upload-btn-small');
+                    if (uploadBtn) {
+                        uploadBtn.innerHTML = '<i class="fas fa-edit"></i> Edit';
+                        uploadBtn.onclick = function(e) {
+                            e.stopPropagation();
+                            openUploadModal(i);
+                        };
+                    }
+                } else {
+                    cardTitle.textContent = `Empty Slot ${i+1}`;
+                    cardCreator.textContent = 'No creator';
+                    cardBadge.textContent = '0:00';
+                    cardVideo.innerHTML = `
+                        <i class="fas fa-video"></i>
+                        <div class="play-overlay" onclick="togglePlay(${i})">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                    `;
+                    cardVideo.classList.remove('has-video');
+                    
+                    const actions = cardVideo.parentElement.querySelector('.card-actions');
+                    const uploadBtn = actions.querySelector('.upload-btn-small');
+                    if (uploadBtn) {
+                        uploadBtn.innerHTML = '<i class="fas fa-upload"></i> Upload';
+                        uploadBtn.onclick = function(e) {
+                            e.stopPropagation();
+                            openUploadModal(i);
+                        };
+                    }
+                }
+            }
+            updateVideoCount();
+        }
+
+        // ===== UPLOAD MODAL =====
+        function openUploadModal(index) {
+            currentCardIndex = index;
+            document.getElementById('uploadModal').classList.add('active');
+            document.getElementById('uploadPreview').innerHTML = '';
+            
+            const video = videos[index];
+            if (video && video.title && video.title !== `Empty Slot ${index+1}`) {
+                document.getElementById('videoTitle').value = video.title || '';
+                document.getElementById('creatorName').value = video.creator || '';
+                document.getElementById('categoryName').value = video.category || '';
+                document.getElementById('descName').value = video.description || '';
+                if (video.videoUrl) {
+                    const preview = document.getElementById('uploadPreview');
+                    const vid = document.createElement('video');
+                    vid.src = video.videoUrl;
+                    vid.controls = true;
+                    vid.style.maxWidth = '100%';
+                    preview.appendChild(vid);
+                }
+            } else {
+                document.getElementById('videoTitle').value = '';
+                document.getElementById('creatorName').value = '';
+                document.getElementById('categoryName').value = '';
+                document.getElementById('descName').value = '';
+            }
+            document.getElementById('videoInput').value = '';
+        }
+
+        function closeUploadModal() {
+            document.getElementById('uploadModal').classList.remove('active');
+            currentCardIndex = null;
+        }
+
+        // ===== PREVIEW HANDLING =====
+        document.getElementById('videoInput').addEventListener('change', function() {
+            const preview = document.getElementById('uploadPreview');
+            const file = this.files[0];
+            if (file) {
+                preview.innerHTML = '';
+                const vid = document.createElement('video');
+                vid.src = URL.createObjectURL(file);
+                vid.controls = true;
+                vid.style.maxWidth = '100%';
+                preview.appendChild(vid);
+            }
+        });
+
+        // ===== HANDLE UPLOAD =====
+        async function handleUpload() {
+            const title = document.getElementById('videoTitle').value.trim();
+            const creator = document.getElementById('creatorName').value.trim();
+            const category = document.getElementById('categoryName').value.trim();
+            const desc = document.getElementById('descName').value.trim();
+            const videoFile = document.getElementById('videoInput').files[0];
+
+            if (!title || !creator) {
+                alert('Please fill in Video Title and Creator Name.');
+                return;
+            }
+
+            const index = currentCardIndex;
+            if (index === null) return;
+
+            try {
+                let videoData = null;
+
+                if (videoFile) {
+                    videoData = await fileToBase64(videoFile);
+                } else if (videos[index] && videos[index].videoData) {
+                    videoData = videos[index].videoData;
+                } else {
+                    alert('Please select a video file.');
+                    return;
+                }
+
+                // Get duration from video
+                let duration = '0:00';
+                if (videoFile) {
+                    const tempVideo = document.createElement('video');
+                    tempVideo.src = URL.createObjectURL(videoFile);
+                    await new Promise((resolve) => {
+                        tempVideo.onloadedmetadata = function() {
+                            const mins = Math.floor(this.duration / 60);
+                            const secs = Math.floor(this.duration % 60);
+                            duration = `${mins}:${secs.toString().padStart(2, '0')}`;
+                            resolve();
+                        };
+                        tempVideo.load();
+                    });
+                }
+
+                const video = {
+                    title: title,
+                    creator: creator,
+                    category: category || 'Unknown',
+                    description: desc || '',
+                    duration: duration,
+                    videoData: videoData,
+                    videoUrl: videoData
+                };
+
+                videos[index] = video;
+                saveVideos();
+                renderAllCards();
+                updateVideoCount();
+                closeUploadModal();
+                console.log('✅ Video uploaded and saved:', title);
+
+            } catch (e) {
+                alert('Error uploading file: ' + e.message);
+            }
+        }
+
+        // ===== TOGGLE PLAY/PAUSE =====
+        function togglePlay(index) {
+            const video = videos[index];
+            if (!video || !video.videoData) {
+                alert('No video uploaded to this slot yet. Click "Upload" to add one.');
+                return;
+            }
+
+            if (currentPlayingIndex === index && videoPlayer) {
+                if (videoPlayer.paused) {
+                    videoPlayer.play();
+                    isPlaying = true;
+                    document.getElementById('npPlayPauseBtn').className = 'fas fa-pause';
+                } else {
+                    videoPlayer.pause();
+                    isPlaying = false;
+                    document.getElementById('npPlayPauseBtn').className = 'fas fa-play';
+                }
+                updatePlayButton(index);
+                return;
+            }
+
+            if (videoPlayer) {
+                videoPlayer.pause();
+                videoPlayer = null;
+            }
+
+            try {
+                videoPlayer = new Audio(video.videoData);
+                videoPlayer.play();
+                currentPlayingIndex = index;
+                isPlaying = true;
+                document.getElementById('npPlayPauseBtn').className = 'fas fa-pause';
+
+                document.getElementById('npTitle').textContent = video.title;
+                document.getElementById('npCreator').textContent = video.creator;
+                document.getElementById('nowPlayingBar').classList.add('active');
+
+                const progressBar = document.getElementById('npProgressBar');
+                const currentTimeEl = document.getElementById('npCurrentTime');
+                const durationEl = document.getElementById('npDuration');
+
+                videoPlayer.addEventListener('loadedmetadata', function() {
+                    const duration = videoPlayer.duration;
+                    const minutes = Math.floor(duration / 60);
+                    const seconds = Math.floor(duration % 60);
+                    durationEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                });
+
+                videoPlayer.addEventListener('timeupdate', function() {
+                    const current = videoPlayer.currentTime;
+                    const duration = videoPlayer.duration || 1;
+                    const minutes = Math.floor(current / 60);
+                    const seconds = Math.floor(current % 60);
+                    currentTimeEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    progressBar.value = (current / duration) * 100;
+                });
+
+                progressBar.addEventListener('input', function() {
+                    if (videoPlayer) {
+                        const duration = videoPlayer.duration || 1;
+                        videoPlayer.currentTime = (this.value / 100) * duration;
+                    }
+                });
+
+                videoPlayer.onended = function() {
+                    stopPlayback();
+                };
+
+                updatePlayButton(index);
+
+            } catch (e) {
+                alert('Error playing video: ' + e.message);
+            }
+        }
+
+        // ===== TOGGLE PLAY/PAUSE FROM BAR =====
+        function togglePlayPause() {
+            if (currentPlayingIndex !== null) {
+                togglePlay(currentPlayingIndex);
+            }
+        }
+
+        // ===== UPDATE PLAY BUTTON =====
+        function updatePlayButton(index) {
+            const cardVideo = document.getElementById(`cardVideo_${index}`);
+            if (!cardVideo) return;
+            const overlay = cardVideo.querySelector('.play-overlay');
+            if (!overlay) return;
+            const icon = overlay.querySelector('i');
+            if (!icon) return;
+
+            if (currentPlayingIndex === index && videoPlayer && !videoPlayer.paused) {
+                icon.className = 'fas fa-pause-circle';
+                overlay.classList.add('playing');
+            } else {
+                icon.className = 'fas fa-play-circle';
+                overlay.classList.remove('playing');
+            }
+        }
+
+        // ===== STOP PLAYBACK =====
+        function stopPlayback() {
+            if (videoPlayer) {
+                videoPlayer.pause();
+                videoPlayer = null;
+            }
+            isPlaying = false;
+            currentPlayingIndex = null;
+            document.getElementById('npPlayPauseBtn').className = 'fas fa-play';
+            document.getElementById('nowPlayingBar').classList.remove('active');
+            document.getElementById('npProgressBar').value = 0;
+            document.getElementById('npCurrentTime').textContent = '0:00';
+            document.getElementById('npDuration').textContent = '0:00';
+
+            document.querySelectorAll('.play-overlay').forEach(overlay => {
+                const icon = overlay.querySelector('i');
+                if (icon) {
+                    icon.className = 'fas fa-play-circle';
+                    overlay.classList.remove('playing');
+                }
+            });
+        }
+
+        // ===== UPDATE VIDEO COUNT =====
+        function updateVideoCount() {
+            const count = videos.filter(v => v && v.title && v.title !== `Empty Slot` && !v.title.includes('Empty')).length;
+            document.getElementById('videoCount').textContent = count;
+        }
+
+        // ===== CLOSE MODAL ON CLICK OUTSIDE =====
+        document.getElementById('uploadModal').addEventListener('click', function(e) {
+            if (e.target === this) closeUploadModal();
+        });
+
+        // ===== KEYBOARD SHORTCUTS =====
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeUploadModal();
+                if (!e.target.closest('input')) stopPlayback();
+            }
+            if (e.key === ' ' && !e.target.closest('input')) {
+                e.preventDefault();
+                togglePlayPause();
+            }
+        });
+
+        // ===== INIT =====
+        createEmptyCards();
+        const loaded = loadVideos();
+        if (loaded && videos.length > 0) {
+            renderAllCards();
+            console.log('🎬 Loaded', videos.filter(v => v && v.title && !v.title.includes('Empty')).length, 'videos from storage');
+        } else {
+            videos = [];
+            saveVideos();
+            console.log('🎬 No saved videos found. Ready for uploads!');
+        }
+        updateVideoCount();
+        console.log('🎬 Melody Video Hub ready! Your videos are saved in localStorage.');
+        console.log('Upload a video, refresh the page, and it will still be there!');
+    </script>
+
+</body>
+</html>

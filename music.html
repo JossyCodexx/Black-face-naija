@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5" />
+    <title>Black-face-naija Music Hub · Upload Your Music</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/music.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background: #0b0b0f;
+            color: #eee;
+            scroll-behavior: smooth;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a24;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6c5ce7;
+            border-radius: 10px;
+        }
+
+        .btn-primary {
+            background: #6c5ce7;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-primary:hover {
+            background: #5a4bd1;
+            transform: scale(1.02);
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 5%;
+            background: rgba(11, 11, 15, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #2a2a3a;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            font-weight: 500;
+        }
+        .nav-links a {
+            padding: 6px 0;
+            border-bottom: 2px solid transparent;
+            transition: 0.2s;
+            color: #ccc;
+        }
+        .nav-links a:hover {
+            border-bottom-color: #6c5ce7;
+            color: #fff;
+        }
+        .nav-links a.active {
+            border-bottom-color: #6c5ce7;
+            color: #fff;
+        }
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .hero {
+            position: relative;
+            padding: 80px 5% 70px;
+            border-radius: 0 0 40px 40px;
+            min-height: 450px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        .hero-bg-image {
+            position: absolute;
+            inset: 0;
+            background: url('./images/music-hero.jpg') center/cover no-repeat;
+            z-index: 0;
+            filter: brightness(0.35) saturate(0.8);
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(11, 11, 15, 0.7) 30%, rgba(108, 92, 231, 0.15) 100%);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+        }
+        .hero h1 {
+            font-size: clamp(2.8rem, 8vw, 4.8rem);
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.85;
+            max-width: 550px;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+        }
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .hero-stats span {
+            font-size: 1rem;
+            opacity: 0.9;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 18px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .hero-stats i {
+            color: #6c5ce7;
+            margin-right: 8px;
+        }
+
+        section {
+            padding: 30px 5%;
+        }
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .music-card {
+            background: #181825;
+            border-radius: 20px;
+            padding: 16px;
+            transition: 0.25s;
+            border: 1px solid #2c2c3e;
+            position: relative;
+        }
+        .music-card:hover {
+            transform: translateY(-4px);
+            border-color: #6c5ce7;
+        }
+        .music-card .card-img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 16px;
+            background: #2a2a3a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #6c5ce7;
+            background: #1a1a2a;
+            border: 2px dashed #3a3a52;
+            position: relative;
+            overflow: hidden;
+        }
+        .music-card .card-img.has-image {
+            border: none;
+        }
+        .music-card .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+        .music-card .card-img .play-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: 0.3s;
+            border-radius: 16px;
+            cursor: pointer;
+        }
+        .music-card .card-img:hover .play-overlay {
+            opacity: 1;
+        }
+        .music-card .card-img .play-overlay i {
+            font-size: 3rem;
+            color: white;
+            text-shadow: 0 0 20px rgba(108, 92, 231, 0.8);
+        }
+        .music-card .card-img .play-overlay.playing i {
+            color: #6c5ce7;
+            text-shadow: 0 0 30px rgba(108, 92, 231, 0.9);
+        }
+        .music-card h4 {
+            margin-top: 12px;
+            font-size: 1rem;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .music-card p {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            color: #ccc;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .card-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            align-items: center;
+        }
+        .badge {
+            background: #2d2d42;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            color: #ccc;
+        }
+        .upload-btn-small {
+            background: #6c5ce7;
+            border: none;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .upload-btn-small:hover {
+            background: #5a4bd1;
+        }
+
+        .upload-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .upload-modal.active {
+            display: flex;
+        }
+        .upload-modal-content {
+            background: #1c1c2a;
+            max-width: 500px;
+            width: 92%;
+            padding: 30px;
+            border-radius: 28px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .upload-modal-content h2 {
+            color: #fff;
+            margin-bottom: 16px;
+        }
+        .upload-modal-content h2 i {
+            color: #6c5ce7;
+            margin-right: 10px;
+        }
+        .upload-modal-content label {
+            color: #ccc;
+            font-size: 0.85rem;
+            display: block;
+            margin-top: 12px;
+            margin-bottom: 4px;
+        }
+        .upload-modal-content input,
+        .upload-modal-content textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: none;
+            background: #0f0f1a;
+            color: #fff;
+            border-radius: 12px;
+            outline: none;
+            border: 1px solid #2a2a3e;
+        }
+        .upload-modal-content textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+        .file-upload-area {
+            border: 2px dashed #6c5ce7;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            color: #aaa;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 8px;
+        }
+        .file-upload-area:hover {
+            background: #1a1a2a;
+            border-color: #a29bfe;
+        }
+        .file-upload-area i {
+            font-size: 2rem;
+            color: #6c5ce7;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .file-upload-area input {
+            display: none;
+        }
+        .upload-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 12px 0;
+        }
+        .upload-preview img,
+        .upload-preview audio {
+            max-width: 100px;
+            border-radius: 12px;
+            background: #0f0f1a;
+        }
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .modal-actions .btn-primary {
+            flex: 1;
+        }
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid #444;
+            padding: 10px 22px;
+            border-radius: 40px;
+            color: #ccc;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-secondary:hover {
+            background: #2a2a3e;
+        }
+
+        footer {
+            background: #0e0e16;
+            padding: 40px 5% 20px;
+            border-top: 1px solid #222;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 30px;
+        }
+        .footer-grid h4 {
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .footer-grid p {
+            color: #ccc;
+            opacity: 0.7;
+            margin: 4px 0;
+        }
+        .social i {
+            font-size: 1.6rem;
+            margin-right: 16px;
+            opacity: 0.7;
+            transition: 0.2s;
+            cursor: pointer;
+            color: #ccc;
+        }
+        .social i:hover {
+            opacity: 1;
+            color: #6c5ce7;
+        }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            opacity: 0.3;
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+
+        .now-playing-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(20, 20, 30, 0.95);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid #6c5ce7;
+            padding: 12px 5%;
+            display: none;
+            align-items: center;
+            gap: 20px;
+            z-index: 50;
+            flex-wrap: wrap;
+        }
+        .now-playing-bar.active {
+            display: flex;
+        }
+        .now-playing-bar .np-info {
+            flex: 2;
+            min-width: 150px;
+        }
+        .now-playing-bar .np-info strong {
+            color: #fff;
+        }
+        .now-playing-bar .np-info span {
+            color: #ccc;
+            opacity: 0.7;
+            margin-left: 8px;
+        }
+        .now-playing-bar .np-controls {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        .now-playing-bar .np-controls button {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .now-playing-bar .np-controls button:hover {
+            color: #6c5ce7;
+        }
+        .now-playing-bar .np-progress {
+            flex: 1;
+            min-width: 100px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .now-playing-bar .np-progress input[type="range"] {
+            flex: 1;
+            height: 4px;
+            -webkit-appearance: none;
+            background: #3a3a52;
+            border-radius: 10px;
+            outline: none;
+        }
+        .now-playing-bar .np-progress input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #6c5ce7;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .now-playing-bar .np-close {
+            background: none;
+            border: none;
+            color: #ff6b6b;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 6px;
+                margin-top: 12px;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+            }
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .upload-modal-content {
+                padding: 20px;
+                margin: 10px;
+            }
+            .hero {
+                padding: 60px 5% 50px;
+                min-height: 350px;
+            }
+            .now-playing-bar {
+                padding: 10px 5%;
+                gap: 12px;
+            }
+        }
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .music-card {
+                padding: 10px;
+            }
+            .hero {
+                padding: 40px 5% 30px;
+                min-height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAV ========== -->
+    
+     <nav>
+        <div class="logo"><i class="fas fa-music" style="background:transparent; -webkit-text-fill-color:#6c5ce7;"></i> Black-face-naija</div>
+        <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')"><i class="fas fa-bars"></i></div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="music.html">Music</a>
+            <a href="videos.html">Videos</a>
+            <a href="albums.html">Albums</a>
+            <a href="song-details.html">Song-Details</a>
+            <a href="artists.html">Artists</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="upload.html">Upload</a>
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-actions">
+            <i class="fas fa-search" style="opacity:0.6; font-size:1.3rem; color:#fff;"></i>
+        </div>
+    </nav>
+
+
+
+    
+    <!-- ===== NAV OVERLAY ===== -->
+    <div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
+
+    <!-- ===== FLOATING BUTTONS ===== -->
+    <button class="chat-btn" aria-label="Live Chat" onclick="toggleChat()">
+        <i class="fas fa-comments"></i>
+    </button>
+
+    <a href="https://wa.me/15551234567" class="whatsapp-btn" aria-label="WhatsApp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- ========== HERO WITH IMAGE ========== -->
+    <section id="home" class="hero">
+        <div class="hero-bg-image"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>🎵 Your Music Gallery</h1>
+            <p>Upload, manage, and play your own audio collection. 20 cards ready for your tracks.</p>
+            <div class="hero-stats">
+                <span><i class="fas fa-music"></i> <span id="songCount">0</span> songs</span>
+                <span><i class="fas fa-cloud-upload-alt"></i> Upload your own</span>
+                <span><i class="fas fa-play"></i> Click to play</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== LIBRARY ========== -->
+    <section id="library">
+        <div class="section-title"><i class="fas fa-library"></i> My Music Gallery</div>
+        <div class="grid" id="musicGrid">
+            <!-- 20 cards will be generated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- ========== UPLOAD MODAL ========== -->
+    <div class="upload-modal" id="uploadModal">
+        <div class="upload-modal-content">
+            <h2><i class="fas fa-upload"></i> Upload Your Song</h2>
+            <form id="uploadForm">
+                <label>Song Title *</label>
+                <input type="text" id="songTitle" placeholder="Enter song title" required />
+
+                <label>Artist Name *</label>
+                <input type="text" id="artistName" placeholder="Enter artist name" required />
+
+                <label>Genre</label>
+                <input type="text" id="genreName" placeholder="e.g. Pop, Rock, Hip-Hop" />
+
+                <label>Description</label>
+                <textarea id="descName" placeholder="Optional description"></textarea>
+
+                <label>Cover Image</label>
+                <div class="file-upload-area" onclick="document.getElementById('coverInput').click()">
+                    <i class="fas fa-image"></i>
+                    <span>Click to upload cover image</span>
+                    <input type="file" id="coverInput" accept="image/*" />
+                </div>
+
+                <label>Audio File (MP3/WAV) *</label>
+                <div class="file-upload-area" onclick="document.getElementById('audioInput').click()">
+                    <i class="fas fa-music"></i>
+                    <span>Click to upload audio file</span>
+                    <input type="file" id="audioInput" accept="audio/*" required />
+                </div>
+
+                <div class="upload-preview" id="uploadPreview"></div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeUploadModal()">Cancel</button>
+                    <button type="button" class="btn-primary" onclick="handleUpload()"><i class="fas fa-check"></i> Upload Song</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== NOW PLAYING BAR ========== -->
+    <div class="now-playing-bar" id="nowPlayingBar">
+        <div class="np-info">
+            <strong id="npTitle">Song Title</strong>
+            <span id="npArtist">Artist</span>
+        </div>
+        <div class="np-controls">
+            <button onclick="togglePlayPause()"><i class="fas fa-play" id="npPlayPauseBtn"></i></button>
+            <button onclick="stopPlayback()"><i class="fas fa-stop"></i></button>
+        </div>
+        <div class="np-progress">
+            <span id="npCurrentTime">0:00</span>
+            <input type="range" id="npProgressBar" min="0" max="100" value="0" />
+            <span id="npDuration">0:00</span>
+        </div>
+        <button class="np-close" onclick="stopPlayback()"><i class="fas fa-times"></i></button>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h4>Black-face-naija Hub</h4>
+                <p>Your music gallery</p>
+                <p>© 2026</p>
+            </div>
+            <div>
+                <h4>Quick Links</h4>
+                <p>Home</p>
+                <p>My Library</p>
+                <p>Upload</p>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <p>Help</p>
+                <p>Contact</p>
+                <p>FAQ</p>
+            </div>
+            <div class="social">
+                <h4>Follow Us</h4>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-youtube"></i>
+                <i class="fab fa-tiktok"></i>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Premium downloads · Paystack · Flutterwave · Stripe
+        </div>
+    </footer>
+
+    <script>
+        // ===== STATE =====
+        let songs = [];
+        let currentCardIndex = null;
+        let audioPlayer = null;
+        let currentPlayingIndex = null;
+        let isPlaying = false;
+
+        // ===== LOCAL STORAGE =====
+        function saveSongs() {
+            try {
+                const data = songs.map(song => {
+                    if (!song) return null;
+                    return {
+                        title: song.title,
+                        artist: song.artist,
+                        genre: song.genre,
+                        description: song.description,
+                        duration: song.duration,
+                        audioData: song.audioData || null,
+                        coverData: song.coverData || null
+                    };
+                });
+                localStorage.setItem('melodySongs', JSON.stringify(data));
+                console.log('✅ Songs saved to localStorage');
+            } catch (e) {
+                console.warn('Could not save to localStorage:', e);
+            }
+        }
+
+        function loadSongs() {
+            try {
+                const data = localStorage.getItem('melodySongs');
+                if (!data) return false;
+                const parsed = JSON.parse(data);
+                if (!Array.isArray(parsed)) return false;
+                
+                songs = parsed.map((songData, index) => {
+                    if (!songData) return null;
+                    const song = {
+                        title: songData.title || `Empty Slot ${index+1}`,
+                        artist: songData.artist || 'No artist',
+                        genre: songData.genre || 'Unknown',
+                        description: songData.description || '',
+                        duration: songData.duration || '3:00',
+                        audioData: songData.audioData || null,
+                        coverData: songData.coverData || null,
+                        audioUrl: null,
+                        coverUrl: null
+                    };
+                    // Restore URLs from base64 data
+                    if (song.audioData) {
+                        song.audioUrl = song.audioData;
+                    }
+                    if (song.coverData) {
+                        song.coverUrl = song.coverData;
+                    }
+                    return song;
+                });
+                console.log('✅ Songs loaded from localStorage:', songs.filter(s => s && s.title).length, 'songs');
+                return true;
+            } catch (e) {
+                console.warn('Could not load from localStorage:', e);
+                return false;
+            }
+        }
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // ===== CREATE 20 EMPTY CARDS =====
+        function createEmptyCards() {
+            const grid = document.getElementById('musicGrid');
+            grid.innerHTML = '';
+            for (let i = 0; i < 20; i++) {
+                const card = document.createElement('div');
+                card.className = 'music-card';
+                card.dataset.index = i;
+                card.innerHTML = `
+                    <div class="card-img" id="cardImg_${i}">
+                        <i class="fas fa-music"></i>
+                        <div class="play-overlay" onclick="togglePlay(${i})">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                    </div>
+                    <h4 id="cardTitle_${i}">Empty Slot ${i+1}</h4>
+                    <p id="cardArtist_${i}">No artist</p>
+                    <div class="card-actions">
+                        <span class="badge" id="cardBadge_${i}">0:00</span>
+                        <button class="upload-btn-small" onclick="openUploadModal(${i})">
+                            <i class="fas fa-upload"></i> Upload
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            }
+            updateSongCount();
+        }
+
+        // ===== RENDER ALL CARDS =====
+        function renderAllCards() {
+            for (let i = 0; i < 20; i++) {
+                const song = songs[i];
+                const cardImg = document.getElementById(`cardImg_${i}`);
+                const cardTitle = document.getElementById(`cardTitle_${i}`);
+                const cardArtist = document.getElementById(`cardArtist_${i}`);
+                const cardBadge = document.getElementById(`cardBadge_${i}`);
+
+                if (song && song.title && song.title !== `Empty Slot ${i+1}`) {
+                    cardTitle.textContent = song.title;
+                    cardArtist.textContent = song.artist + (song.genre ? ` · ${song.genre}` : '');
+                    cardBadge.textContent = song.duration || '3:00';
+
+                    if (song.coverUrl) {
+                        cardImg.innerHTML = `
+                            <img src="${song.coverUrl}" alt="${song.title}" />
+                            <div class="play-overlay" onclick="togglePlay(${i})">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                        `;
+                        cardImg.classList.add('has-image');
+                    } else {
+                        cardImg.innerHTML = `
+                            <i class="fas fa-music"></i>
+                            <div class="play-overlay" onclick="togglePlay(${i})">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                        `;
+                        cardImg.classList.remove('has-image');
+                    }
+
+                    // Update upload button
+                    const actions = cardImg.parentElement.querySelector('.card-actions');
+                    const uploadBtn = actions.querySelector('.upload-btn-small');
+                    if (uploadBtn) {
+                        uploadBtn.innerHTML = '<i class="fas fa-edit"></i> Edit';
+                        uploadBtn.onclick = function(e) {
+                            e.stopPropagation();
+                            openUploadModal(i);
+                        };
+                    }
+                } else {
+                    // Reset to empty state
+                    cardTitle.textContent = `Empty Slot ${i+1}`;
+                    cardArtist.textContent = 'No artist';
+                    cardBadge.textContent = '0:00';
+                    cardImg.innerHTML = `
+                        <i class="fas fa-music"></i>
+                        <div class="play-overlay" onclick="togglePlay(${i})">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                    `;
+                    cardImg.classList.remove('has-image');
+                    
+                    const actions = cardImg.parentElement.querySelector('.card-actions');
+                    const uploadBtn = actions.querySelector('.upload-btn-small');
+                    if (uploadBtn) {
+                        uploadBtn.innerHTML = '<i class="fas fa-upload"></i> Upload';
+                        uploadBtn.onclick = function(e) {
+                            e.stopPropagation();
+                            openUploadModal(i);
+                        };
+                    }
+                }
+            }
+            updateSongCount();
+        }
+
+        // ===== UPLOAD MODAL =====
+        function openUploadModal(index) {
+            currentCardIndex = index;
+            document.getElementById('uploadModal').classList.add('active');
+            document.getElementById('uploadPreview').innerHTML = '';
+            
+            const song = songs[index];
+            if (song && song.title && song.title !== `Empty Slot ${index+1}`) {
+                document.getElementById('songTitle').value = song.title || '';
+                document.getElementById('artistName').value = song.artist || '';
+                document.getElementById('genreName').value = song.genre || '';
+                document.getElementById('descName').value = song.description || '';
+                if (song.coverUrl) {
+                    const preview = document.getElementById('uploadPreview');
+                    const img = document.createElement('img');
+                    img.src = song.coverUrl;
+                    img.alt = 'Current cover';
+                    preview.appendChild(img);
+                }
+            } else {
+                document.getElementById('songTitle').value = '';
+                document.getElementById('artistName').value = '';
+                document.getElementById('genreName').value = '';
+                document.getElementById('descName').value = '';
+            }
+            document.getElementById('audioInput').value = '';
+            document.getElementById('coverInput').value = '';
+        }
+
+        function closeUploadModal() {
+            document.getElementById('uploadModal').classList.remove('active');
+            currentCardIndex = null;
+        }
+
+        // ===== PREVIEW HANDLING =====
+        document.getElementById('coverInput').addEventListener('change', function() {
+            const preview = document.getElementById('uploadPreview');
+            const file = this.files[0];
+            if (file) {
+                preview.querySelectorAll('img').forEach(img => img.remove());
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.alt = 'Cover preview';
+                preview.appendChild(img);
+            }
+        });
+
+        document.getElementById('audioInput').addEventListener('change', function() {
+            const preview = document.getElementById('uploadPreview');
+            const file = this.files[0];
+            if (file) {
+                const oldAudio = preview.querySelector('audio');
+                if (oldAudio) oldAudio.remove();
+                const audio = document.createElement('audio');
+                audio.src = URL.createObjectURL(file);
+                audio.controls = true;
+                audio.style.maxWidth = '100%';
+                preview.appendChild(audio);
+            }
+        });
+
+        // ===== HANDLE UPLOAD =====
+        async function handleUpload() {
+            const title = document.getElementById('songTitle').value.trim();
+            const artist = document.getElementById('artistName').value.trim();
+            const genre = document.getElementById('genreName').value.trim();
+            const desc = document.getElementById('descName').value.trim();
+            const audioFile = document.getElementById('audioInput').files[0];
+            const coverFile = document.getElementById('coverInput').files[0];
+
+            if (!title || !artist) {
+                alert('Please fill in Song Title and Artist Name.');
+                return;
+            }
+
+            const index = currentCardIndex;
+            if (index === null) return;
+
+            try {
+                let audioData = null;
+                let coverData = null;
+
+                if (audioFile) {
+                    audioData = await fileToBase64(audioFile);
+                } else if (songs[index] && songs[index].audioData) {
+                    audioData = songs[index].audioData;
+                } else {
+                    alert('Please select an audio file.');
+                    return;
+                }
+
+                if (coverFile) {
+                    coverData = await fileToBase64(coverFile);
+                } else if (songs[index] && songs[index].coverData) {
+                    coverData = songs[index].coverData;
+                }
+
+                const song = {
+                    title: title,
+                    artist: artist,
+                    genre: genre || 'Unknown',
+                    description: desc || '',
+                    duration: '3:00',
+                    audioData: audioData,
+                    coverData: coverData,
+                    audioUrl: audioData,
+                    coverUrl: coverData
+                };
+
+                songs[index] = song;
+                saveSongs();
+                renderAllCards();
+                updateSongCount();
+                closeUploadModal();
+                console.log('✅ Song uploaded and saved:', title);
+
+            } catch (e) {
+                alert('Error uploading file: ' + e.message);
+            }
+        }
+
+        // ===== TOGGLE PLAY/PAUSE =====
+        function togglePlay(index) {
+            const song = songs[index];
+            if (!song || !song.audioData) {
+                alert('No song uploaded to this slot yet. Click "Upload" to add one.');
+                return;
+            }
+
+            if (currentPlayingIndex === index && audioPlayer) {
+                // Toggle pause/play
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    isPlaying = true;
+                    document.getElementById('npPlayPauseBtn').className = 'fas fa-pause';
+                } else {
+                    audioPlayer.pause();
+                    isPlaying = false;
+                    document.getElementById('npPlayPauseBtn').className = 'fas fa-play';
+                }
+                updatePlayButton(index);
+                return;
+            }
+
+            // Stop current playback
+            if (audioPlayer) {
+                audioPlayer.pause();
+                audioPlayer = null;
+            }
+
+            // Start new playback
+            try {
+                audioPlayer = new Audio(song.audioData);
+                audioPlayer.play();
+                currentPlayingIndex = index;
+                isPlaying = true;
+                document.getElementById('npPlayPauseBtn').className = 'fas fa-pause';
+
+                // Update now playing bar
+                document.getElementById('npTitle').textContent = song.title;
+                document.getElementById('npArtist').textContent = song.artist;
+                document.getElementById('nowPlayingBar').classList.add('active');
+
+                // Progress bar updates
+                const progressBar = document.getElementById('npProgressBar');
+                const currentTimeEl = document.getElementById('npCurrentTime');
+                const durationEl = document.getElementById('npDuration');
+
+                audioPlayer.addEventListener('loadedmetadata', function() {
+                    const duration = audioPlayer.duration;
+                    const minutes = Math.floor(duration / 60);
+                    const seconds = Math.floor(duration % 60);
+                    durationEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                });
+
+                audioPlayer.addEventListener('timeupdate', function() {
+                    const current = audioPlayer.currentTime;
+                    const duration = audioPlayer.duration || 1;
+                    const minutes = Math.floor(current / 60);
+                    const seconds = Math.floor(current % 60);
+                    currentTimeEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    progressBar.value = (current / duration) * 100;
+                });
+
+                progressBar.addEventListener('input', function() {
+                    if (audioPlayer) {
+                        const duration = audioPlayer.duration || 1;
+                        audioPlayer.currentTime = (this.value / 100) * duration;
+                    }
+                });
+
+                audioPlayer.onended = function() {
+                    stopPlayback();
+                };
+
+                updatePlayButton(index);
+
+            } catch (e) {
+                alert('Error playing audio: ' + e.message);
+            }
+        }
+
+        // ===== TOGGLE PLAY/PAUSE FROM BAR =====
+        function togglePlayPause() {
+            if (currentPlayingIndex !== null) {
+                togglePlay(currentPlayingIndex);
+            }
+        }
+
+        // ===== UPDATE PLAY BUTTON =====
+        function updatePlayButton(index) {
+            const cardImg = document.getElementById(`cardImg_${index}`);
+            if (!cardImg) return;
+            const overlay = cardImg.querySelector('.play-overlay');
+            if (!overlay) return;
+            const icon = overlay.querySelector('i');
+            if (!icon) return;
+
+            if (currentPlayingIndex === index && audioPlayer && !audioPlayer.paused) {
+                icon.className = 'fas fa-pause-circle';
+                overlay.classList.add('playing');
+            } else {
+                icon.className = 'fas fa-play-circle';
+                overlay.classList.remove('playing');
+            }
+        }
+
+        // ===== STOP PLAYBACK =====
+        function stopPlayback() {
+            if (audioPlayer) {
+                audioPlayer.pause();
+                audioPlayer = null;
+            }
+            isPlaying = false;
+            currentPlayingIndex = null;
+            document.getElementById('npPlayPauseBtn').className = 'fas fa-play';
+            document.getElementById('nowPlayingBar').classList.remove('active');
+            document.getElementById('npProgressBar').value = 0;
+            document.getElementById('npCurrentTime').textContent = '0:00';
+            document.getElementById('npDuration').textContent = '0:00';
+
+            // Reset all play buttons
+            document.querySelectorAll('.play-overlay').forEach(overlay => {
+                const icon = overlay.querySelector('i');
+                if (icon) {
+                    icon.className = 'fas fa-play-circle';
+                    overlay.classList.remove('playing');
+                }
+            });
+        }
+
+        // ===== UPDATE SONG COUNT =====
+        function updateSongCount() {
+            const count = songs.filter(s => s && s.title && s.title !== `Empty Slot` && !s.title.includes('Empty')).length;
+            document.getElementById('songCount').textContent = count;
+        }
+
+        // ===== CLOSE MODAL ON CLICK OUTSIDE =====
+        document.getElementById('uploadModal').addEventListener('click', function(e) {
+            if (e.target === this) closeUploadModal();
+        });
+
+        // ===== KEYBOARD SHORTCUTS =====
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeUploadModal();
+                if (!e.target.closest('input')) stopPlayback();
+            }
+            if (e.key === ' ' && !e.target.closest('input')) {
+                e.preventDefault();
+                togglePlayPause();
+            }
+        });
+
+        // ===== INIT =====
+        // Try to load from localStorage
+        createEmptyCards();
+        const loaded = loadSongs();
+        if (loaded && songs.length > 0) {
+            renderAllCards();
+            console.log('🎵 Loaded', songs.filter(s => s && s.title && !s.title.includes('Empty')).length, 'songs from storage');
+        } else {
+            // Initialize empty array
+            songs = [];
+            saveSongs();
+            console.log('🎵 No saved songs found. Ready for uploads!');
+        }
+        updateSongCount();
+        console.log('🎵 Melody Music Hub ready! Your songs are saved in localStorage.');
+        console.log('Upload a song, refresh the page, and it will still be there!');
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5" />
+    <title>Black-face-naija Music Hub · Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/register.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background: #0b0b0f;
+            color: #eee;
+            scroll-behavior: smooth;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a24;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6c5ce7;
+            border-radius: 10px;
+        }
+
+        .btn-primary {
+            background: #6c5ce7;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background: #5a4bd1;
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(108, 92, 231, 0.4);
+        }
+
+        .btn-social {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-weight: 500;
+            color: #ccc;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex: 1;
+        }
+        .btn-social:hover {
+            background: rgba(108, 92, 231, 0.15);
+            border-color: #6c5ce7;
+            color: #fff;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 5%;
+            background: rgba(11, 11, 15, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #2a2a3a;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            font-weight: 500;
+        }
+        .nav-links a {
+            padding: 6px 0;
+            border-bottom: 2px solid transparent;
+            transition: 0.2s;
+            color: #ccc;
+        }
+        .nav-links a:hover {
+            border-bottom-color: #6c5ce7;
+            color: #fff;
+        }
+        .nav-links a.active {
+            border-bottom-color: #6c5ce7;
+            color: #fff;
+        }
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            position: relative;
+            padding: 80px 5% 70px;
+            border-radius: 0 0 40px 40px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        .hero-bg-image {
+            position: absolute;
+            inset: 0;
+            background: url('./images/register-hero.jpg') center/cover no-repeat;
+            z-index: 0;
+            filter: brightness(0.3) saturate(0.7);
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(11, 11, 15, 0.7) 30%, rgba(108, 92, 231, 0.2) 100%);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+        }
+        .hero h1 {
+            font-size: clamp(2.8rem, 8vw, 4.8rem);
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.85;
+            max-width: 550px;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+        }
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .hero-stats span {
+            font-size: 1rem;
+            opacity: 0.9;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 18px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .hero-stats i {
+            color: #6c5ce7;
+            margin-right: 8px;
+        }
+
+        section {
+            padding: 40px 5%;
+        }
+
+        /* Register Container */
+        .register-container {
+            max-width: 480px;
+            margin: -30px auto 0;
+            background: rgba(20, 20, 30, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 28px;
+            padding: 40px 35px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            position: relative;
+            z-index: 3;
+        }
+        .register-container .register-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .register-container .register-header h2 {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .register-container .register-header p {
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+        .register-container .form-group {
+            margin-bottom: 16px;
+        }
+        .register-container label {
+            display: block;
+            color: #ccc;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+        .register-container label .required {
+            color: #ff6b6b;
+        }
+        .register-container input {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            background: #1a1a2a;
+            color: #fff;
+            border-radius: 14px;
+            outline: none;
+            border: 1px solid #2a2a3e;
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+        .register-container input:focus {
+            border-color: #6c5ce7;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+        }
+        .register-container .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        /* Password Strength */
+        .password-strength {
+            margin-top: 8px;
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+        .password-strength .bar {
+            flex: 1;
+            height: 4px;
+            background: #2a2a3e;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+        .password-strength .bar.active {
+            background: #ff6b6b;
+        }
+        .password-strength .bar.active.medium {
+            background: #f39c12;
+        }
+        .password-strength .bar.active.strong {
+            background: #6cce77;
+        }
+        .password-strength .label {
+            font-size: 0.75rem;
+            color: #888;
+            min-width: 50px;
+            text-align: right;
+        }
+
+        .register-container .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 16px 0 20px;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+        .register-container .terms input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #6c5ce7;
+            cursor: pointer;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        .register-container .terms a {
+            color: #6c5ce7;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .register-container .terms a:hover {
+            color: #a29bfe;
+            text-decoration: underline;
+        }
+
+        .register-container .divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 24px 0;
+            color: #666;
+            font-size: 0.85rem;
+        }
+        .register-container .divider::before,
+        .register-container .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #2a2a3e;
+        }
+        .register-container .social-register {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .register-container .login-link {
+            text-align: center;
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+        .register-container .login-link a {
+            color: #6c5ce7;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .register-container .login-link a:hover {
+            color: #a29bfe;
+            text-decoration: underline;
+        }
+
+        .register-status {
+            padding: 12px 16px;
+            border-radius: 14px;
+            margin-bottom: 16px;
+            display: none;
+            font-size: 0.95rem;
+        }
+        .register-status.success {
+            display: block;
+            background: rgba(108, 206, 119, 0.15);
+            border: 1px solid #6cce77;
+            color: #6cce77;
+        }
+        .register-status.error {
+            display: block;
+            background: rgba(255, 107, 107, 0.15);
+            border: 1px solid #ff6b6b;
+            color: #ff6b6b;
+        }
+
+        footer {
+            background: #0e0e16;
+            padding: 40px 5% 20px;
+            border-top: 1px solid #222;
+            margin-top: 40px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 30px;
+        }
+        .footer-grid h4 {
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .footer-grid p {
+            color: #ccc;
+            opacity: 0.7;
+            margin: 4px 0;
+        }
+        .social i {
+            font-size: 1.6rem;
+            margin-right: 16px;
+            opacity: 0.7;
+            transition: 0.2s;
+            cursor: pointer;
+            color: #ccc;
+        }
+        .social i:hover {
+            opacity: 1;
+            color: #6c5ce7;
+        }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            opacity: 0.3;
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 6px;
+                margin-top: 12px;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+            }
+            .register-container {
+                padding: 30px 20px;
+                margin: -20px 10px 0;
+            }
+            .register-container .form-row {
+                grid-template-columns: 1fr;
+            }
+            .hero {
+                padding: 60px 5% 50px;
+                min-height: 300px;
+            }
+            .register-container .social-register {
+                flex-direction: column;
+            }
+        }
+        @media (max-width: 480px) {
+            .register-container {
+                padding: 24px 16px;
+            }
+            .hero {
+                padding: 40px 5% 30px;
+                min-height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><i class="fas fa-music" style="background:transparent; -webkit-text-fill-color:#6c5ce7;"></i> Black-face-naija</div>
+        <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')"><i class="fas fa-bars"></i></div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="music.html">Music</a>
+            <a href="videos.html">Videos</a>
+            <a href="albums.html">Albums</a>
+            <a href="song-details.html">Song-Details</a>
+            <a href="artists.html">Artists</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="upload.html">Upload</a>
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-actions">
+            <i class="fas fa-search" style="opacity:0.6; font-size:1.3rem; color:#fff;"></i>
+        </div>
+    </nav>
+
+
+
+    
+    <!-- ===== NAV OVERLAY ===== -->
+    <div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
+
+    <!-- ===== FLOATING BUTTONS ===== -->
+    <button class="chat-btn" aria-label="Live Chat" onclick="toggleChat()">
+        <i class="fas fa-comments"></i>
+    </button>
+
+    <a href="https://wa.me/15551234567" class="whatsapp-btn" aria-label="WhatsApp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+
+    <!-- ========== HERO ========== -->
+    <section id="home" class="hero">
+        <div class="hero-bg-image"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>🚀 Join Black face naija music Hub</h1>
+            <p>Create your account and start your music journey today.</p>
+            <div class="hero-stats">
+                <span><i class="fas fa-users"></i> 1.2M+ users</span>
+                <span><i class="fas fa-music"></i> 2.4M+ songs</span>
+                <span><i class="fas fa-gem"></i> Free membership</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== REGISTER FORM ========== -->
+    <section id="register" style="padding-top: 0;">
+        <div class="register-container">
+            <div class="register-header">
+                <h2>Create Account</h2>
+                <p>Join millions of music lovers worldwide</p>
+            </div>
+
+            <div class="register-status" id="registerStatus"></div>
+
+            <form id="registerForm" onsubmit="return false;">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name <span class="required">*</span></label>
+                        <input type="text" id="fullName" placeholder="Enter full name" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Username <span class="required">*</span></label>
+                        <input type="text" id="username" placeholder="Choose username" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address <span class="required">*</span></label>
+                    <input type="email" id="email" placeholder="Enter your email" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phone" placeholder="Enter phone number (optional)" />
+                </div>
+
+                <div class="form-group">
+                    <label>Password <span class="required">*</span></label>
+                    <input type="password" id="password" placeholder="Create a strong password" required />
+                    <div class="password-strength" id="passwordStrength">
+                        <div class="bar" id="strengthBar1"></div>
+                        <div class="bar" id="strengthBar2"></div>
+                        <div class="bar" id="strengthBar3"></div>
+                        <span class="label" id="strengthLabel">Weak</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Confirm Password <span class="required">*</span></label>
+                    <input type="password" id="confirmPassword" placeholder="Confirm your password" required />
+                </div>
+
+                <div class="terms">
+                    <input type="checkbox" id="termsCheck" required />
+                    <label for="termsCheck">
+                        I agree to the <a href="#terms">Terms of Service</a> and <a href="#privacy">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <button type="button" class="btn-primary" onclick="handleRegister()">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+            </form>
+
+            <div class="divider">or sign up with</div>
+
+            <div class="social-register">
+                <button class="btn-social" onclick="socialRegister('Google')">
+                    <i class="fab fa-google" style="color: #ea4335;"></i> Google
+                </button>
+                <button class="btn-social" onclick="socialRegister('Facebook')">
+                    <i class="fab fa-facebook" style="color: #1877f2;"></i> Facebook
+                </button>
+                <button class="btn-social" onclick="socialRegister('Apple')">
+                    <i class="fab fa-apple" style="color: #fff;"></i> Apple
+                </button>
+            </div>
+
+            <div class="login-link">
+                Already have an account? <a href="login.html">Sign in</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h4>Black-face-naija Hub</h4>
+                <p>Your music platform</p>
+                <p>© 2026</p>
+            </div>
+            <div>
+                <h4>Quick Links</h4>
+                <p>Home</p>
+                <p>Music</p>
+                <p>Videos</p>
+                <p>Artists</p>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <p>Help</p>
+                <p>Contact</p>
+                <p>FAQ</p>
+            </div>
+            <div class="social">
+                <h4>Follow Us</h4>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-youtube"></i>
+                <i class="fab fa-tiktok"></i>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Premium downloads · Paystack · Flutterwave · Stripe
+        </div>
+    </footer>
+
+    <script>
+        // ===== PASSWORD STRENGTH INDICATOR =====
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const bar1 = document.getElementById('strengthBar1');
+            const bar2 = document.getElementById('strengthBar2');
+            const bar3 = document.getElementById('strengthBar3');
+            const label = document.getElementById('strengthLabel');
+
+            // Reset all bars
+            [bar1, bar2, bar3].forEach(bar => {
+                bar.className = 'bar';
+            });
+
+            let strength = 0;
+            if (password.length >= 6) strength++;
+            if (password.length >= 10) strength++;
+            if (/[A-Z]/.test(password) && /[a-z]/.test(password)) strength++;
+            if (/\d/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+            let level = 'Weak';
+            let color = 'weak';
+
+            if (strength >= 4) {
+                level = 'Strong';
+                color = 'strong';
+                bar1.className = 'bar active strong';
+                bar2.className = 'bar active strong';
+                bar3.className = 'bar active strong';
+            } else if (strength >= 2) {
+                level = 'Medium';
+                color = 'medium';
+                bar1.className = 'bar active medium';
+                bar2.className = 'bar active medium';
+                bar3.className = 'bar';
+            } else if (strength >= 1) {
+                level = 'Weak';
+                color = 'weak';
+                bar1.className = 'bar active';
+                bar2.className = 'bar';
+                bar3.className = 'bar';
+            } else {
+                level = 'Weak';
+                color = 'weak';
+                bar1.className = 'bar';
+                bar2.className = 'bar';
+                bar3.className = 'bar';
+            }
+
+            label.textContent = level;
+            label.style.color = color === 'strong' ? '#6cce77' : color === 'medium' ? '#f39c12' : '#ff6b6b';
+        });
+
+        // ===== HANDLE REGISTER =====
+        function handleRegister() {
+            const fullName = document.getElementById('fullName').value.trim();
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const termsCheck = document.getElementById('termsCheck').checked;
+            const status = document.getElementById('registerStatus');
+
+            // Validation
+            if (!fullName || !username || !email || !password || !confirmPassword) {
+                status.className = 'register-status error';
+                status.style.display = 'block';
+                status.innerHTML = '⚠️ Please fill in all required fields.';
+                return;
+            }
+
+            if (fullName.length < 2) {
+                status.className = 'register-status error';
+                status.style.display = 'block';
+                status.innerHTML = '⚠️ Full name must be at least 2 characters.';
+                return;
+            }
+
+            if (username.length < 3) {
+                status.className = 'register-status error';
+                status.style.display = 'block';
+                status.innerHTML = '⚠️ Username must be at least 3 characters.';
+                return;
+            }
+
+            if (!email.includes('@') || !email.includes('.')) {
+                status.className = 'register-status error';
+                status.style.display = 'block';
+                status.innerHTML = '⚠️ Please enter a valid email address.';
+                return;
+            }
+
+            if (password.length < 6) {
+                status.className = 'register-status error';
+                status.style.display = 'block';
+                status.innerHTML = '⚠️ Password must be at least 6 characters.';
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                status.className = 'register-status error';
+                status.style.display = 'block';
+                status.innerHTML = '⚠️ Passwords do not match.';
+                return;
+            }
+
+            if (!termsCheck) {
+                status.className = 'register-status error';
+                status.style.display = 'block';
+                status.innerHTML = '⚠️ Please agree to the Terms of Service and Privacy Policy.';
+                return;
+            }
+
+            // Simulate registration
+            status.className = 'register-status';
+            status.style.display = 'block';
+            status.innerHTML = '⏳ Creating your account... Please wait.';
+
+            setTimeout(() => {
+                status.className = 'register-status success';
+                status.innerHTML = `
+                    ✅ <strong>Account Created!</strong><br />
+                    Welcome ${fullName}! Your account has been successfully created.
+                    <br /><small style="opacity:0.7;">Redirecting to login...</small>
+                `;
+
+                // Store registration info
+                const userData = {
+                    fullName: fullName,
+                    username: username,
+                    email: email,
+                    phone: phone,
+                    registeredAt: new Date().toISOString()
+                };
+                localStorage.setItem('melodyUserData', JSON.stringify(userData));
+                localStorage.setItem('melodyUser', JSON.stringify({
+                    email: email,
+                    loggedIn: false,
+                    registered: true
+                }));
+
+                console.log('✅ User registered:', { fullName, username, email });
+
+                // Redirect to login after 2 seconds
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+
+            }, 1500);
+        }
+
+        // ===== SOCIAL REGISTER =====
+        function socialRegister(provider) {
+            const status = document.getElementById('registerStatus');
+            status.className = 'register-status';
+            status.style.display = 'block';
+            status.innerHTML = `⏳ Connecting to ${provider}...`;
+
+            setTimeout(() => {
+                status.className = 'register-status success';
+                status.innerHTML = `
+                    ✅ <strong>Registration Successful!</strong><br />
+                    You are now signed up with ${provider}.
+                    <br /><small style="opacity:0.7;">Redirecting to dashboard...</small>
+                `;
+
+                localStorage.setItem('melodyUser', JSON.stringify({
+                    provider: provider,
+                    loggedIn: true,
+                    registered: true
+                }));
+
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1500);
+            }, 1200);
+        }
+
+        // ===== KEYBOARD SHORTCUT: ENTER TO REGISTER =====
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const form = document.getElementById('registerForm');
+                if (form.contains(e.target)) {
+                    handleRegister();
+                }
+            }
+        });
+
+        // ===== HAMBURGER =====
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('open');
+            });
+        });
+
+        // ===== CHECK IF ALREADY REGISTERED =====
+        const savedUser = localStorage.getItem('melodyUser');
+        if (savedUser) {
+            try {
+                const user = JSON.parse(savedUser);
+                if (user.registered) {
+                    console.log('👤 User already registered:', user.email || user.provider);
+                }
+            } catch (e) {}
+        }
+
+        console.log('🚀 Melody Registration Hub ready!');
+    </script>
+
+</body>
+</html>

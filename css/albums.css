@@ -1,0 +1,61 @@
+
+
+        /* ===== FLOATING BUTTONS ===== */
+        .chat-btn, .whatsapp-btn {
+            position: fixed;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            z-index: 98;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+        .chat-btn:hover, .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(108, 92, 231, 0.5);
+        }
+        .chat-btn {
+            bottom: 110px;
+            right: 25px;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+        }
+        .whatsapp-btn {
+            bottom: 170px;
+            right: 25px;
+            background: #25d366;
+        }
+        .whatsapp-btn:hover {
+            background: #1da851;
+        }
+
+
+
+        /* ===== NAV OVERLAY ===== */
+        .nav-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 98;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .nav-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+
+
+        a{
+            text-decoration: none;
+        }

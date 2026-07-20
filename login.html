@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5" />
+    <title>Black-face-naija Music Hub · Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/login.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background: #0b0b0f;
+            color: #eee;
+            scroll-behavior: smooth;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a24;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6c5ce7;
+            border-radius: 10px;
+        }
+
+        .btn-primary {
+            background: #6c5ce7;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background: #5a4bd1;
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(108, 92, 231, 0.4);
+        }
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #444;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #ccc;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+            width: 100%;
+        }
+        .btn-secondary:hover {
+            border-color: #6c5ce7;
+            color: #fff;
+        }
+
+        .btn-social {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-weight: 500;
+            color: #ccc;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex: 1;
+        }
+        .btn-social:hover {
+            background: rgba(108, 92, 231, 0.15);
+            border-color: #6c5ce7;
+            color: #fff;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 5%;
+            background: rgba(11, 11, 15, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #2a2a3a;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            font-weight: 500;
+        }
+        .nav-links a {
+            padding: 6px 0;
+            border-bottom: 2px solid transparent;
+            transition: 0.2s;
+            color: #ccc;
+        }
+        .nav-links a:hover {
+            border-bottom-color: #6c5ce7;
+            color: #fff;
+        }
+        .nav-links a.active {
+            border-bottom-color: #6c5ce7;
+            color: #fff;
+        }
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            position: relative;
+            padding: 80px 5% 70px;
+            border-radius: 0 0 40px 40px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        .hero-bg-image {
+            position: absolute;
+            inset: 0;
+            background: url('./images/login-hero.jpg') center/cover no-repeat;
+            z-index: 0;
+            filter: brightness(0.3) saturate(0.7);
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(11, 11, 15, 0.7) 30%, rgba(108, 92, 231, 0.2) 100%);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+        }
+        .hero h1 {
+            font-size: clamp(2.8rem, 8vw, 4.8rem);
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.85;
+            max-width: 550px;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+        }
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .hero-stats span {
+            font-size: 1rem;
+            opacity: 0.9;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 18px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .hero-stats i {
+            color: #6c5ce7;
+            margin-right: 8px;
+        }
+
+        section {
+            padding: 40px 5%;
+        }
+
+        /* Login Container */
+        .login-container {
+            max-width: 440px;
+            margin: -30px auto 0;
+            background: rgba(20, 20, 30, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 28px;
+            padding: 40px 35px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            position: relative;
+            z-index: 3;
+        }
+        .login-container .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .login-container .login-header h2 {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .login-container .login-header p {
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+        .login-container .form-group {
+            margin-bottom: 18px;
+        }
+        .login-container label {
+            display: block;
+            color: #ccc;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+        .login-container label .required {
+            color: #ff6b6b;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            background: #1a1a2a;
+            color: #fff;
+            border-radius: 14px;
+            outline: none;
+            border: 1px solid #2a2a3e;
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+        .login-container input:focus {
+            border-color: #6c5ce7;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+        }
+        .login-container .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 16px 0 20px;
+            font-size: 0.9rem;
+        }
+        .login-container .form-options label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #aaa;
+            cursor: pointer;
+            margin-bottom: 0;
+        }
+        .login-container .form-options label input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #6c5ce7;
+            cursor: pointer;
+        }
+        .login-container .form-options a {
+            color: #6c5ce7;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .login-container .form-options a:hover {
+            color: #a29bfe;
+            text-decoration: underline;
+        }
+        .login-container .divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 24px 0;
+            color: #666;
+            font-size: 0.85rem;
+        }
+        .login-container .divider::before,
+        .login-container .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #2a2a3e;
+        }
+        .login-container .social-login {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .login-container .register-link {
+            text-align: center;
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+        .login-container .register-link a {
+            color: #6c5ce7;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .login-container .register-link a:hover {
+            color: #a29bfe;
+            text-decoration: underline;
+        }
+
+        .login-status {
+            padding: 12px 16px;
+            border-radius: 14px;
+            margin-bottom: 16px;
+            display: none;
+            font-size: 0.95rem;
+        }
+        .login-status.success {
+            display: block;
+            background: rgba(108, 206, 119, 0.15);
+            border: 1px solid #6cce77;
+            color: #6cce77;
+        }
+        .login-status.error {
+            display: block;
+            background: rgba(255, 107, 107, 0.15);
+            border: 1px solid #ff6b6b;
+            color: #ff6b6b;
+        }
+
+        footer {
+            background: #0e0e16;
+            padding: 40px 5% 20px;
+            border-top: 1px solid #222;
+            margin-top: 40px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 30px;
+        }
+        .footer-grid h4 {
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .footer-grid p {
+            color: #ccc;
+            opacity: 0.7;
+            margin: 4px 0;
+        }
+        .social i {
+            font-size: 1.6rem;
+            margin-right: 16px;
+            opacity: 0.7;
+            transition: 0.2s;
+            cursor: pointer;
+            color: #ccc;
+        }
+        .social i:hover {
+            opacity: 1;
+            color: #6c5ce7;
+        }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            opacity: 0.3;
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 6px;
+                margin-top: 12px;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+            }
+            .login-container {
+                padding: 30px 20px;
+                margin: -20px 10px 0;
+            }
+            .hero {
+                padding: 60px 5% 50px;
+                min-height: 300px;
+            }
+            .login-container .social-login {
+                flex-direction: column;
+            }
+        }
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 24px 16px;
+            }
+            .hero {
+                padding: 40px 5% 30px;
+                min-height: 250px;
+            }
+            .login-container .form-options {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAV ========== -->
+    <nav>
+        <div class="logo"><i class="fas fa-music" style="background:transparent; -webkit-text-fill-color:#6c5ce7;"></i> Black-face-naija</div>
+        <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')"><i class="fas fa-bars"></i></div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="music.html">Music</a>
+            <a href="videos.html">Videos</a>
+            <a href="albums.html">Albums</a>
+            <a href="song-details.html">Song-Details</a>
+            <a href="artists.html">Artists</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="upload.html">Upload</a>
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-actions">
+            <i class="fas fa-search" style="opacity:0.6; font-size:1.3rem; color:#fff;"></i>
+        </div>
+    </nav>
+
+
+    
+    <!-- ===== NAV OVERLAY ===== -->
+    <div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
+
+    <!-- ===== FLOATING BUTTONS ===== -->
+    <button class="chat-btn" aria-label="Live Chat" onclick="toggleChat()">
+        <i class="fas fa-comments"></i>
+    </button>
+
+    <a href="https://wa.me/15551234567" class="whatsapp-btn" aria-label="WhatsApp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- ========== HERO ========== -->
+    <section id="home" class="hero">
+        <div class="hero-bg-image"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>🔐 Welcome Back</h1>
+            <p>Login to your Black face naija Music Hub account and continue your music journey.</p>
+            <div class="hero-stats">
+                <span><i class="fas fa-users"></i> 1.2M+ users</span>
+                <span><i class="fas fa-music"></i> 2.4M+ songs</span>
+                <span><i class="fas fa-shield-alt"></i> Secure login</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== LOGIN FORM ========== -->
+    <section id="login" style="padding-top: 0;">
+        <div class="login-container">
+            <div class="login-header">
+                <h2>Sign In</h2>
+                <p>Enter your credentials to access your account</p>
+            </div>
+
+            <div class="login-status" id="loginStatus"></div>
+
+            <form id="loginForm" onsubmit="return false;">
+                <div class="form-group">
+                    <label>Email Address <span class="required">*</span></label>
+                    <input type="email" id="email" placeholder="Enter your email" required />
+                </div>
+                <div class="form-group">
+                    <label>Password <span class="required">*</span></label>
+                    <input type="password" id="password" placeholder="Enter your password" required />
+                </div>
+
+                <div class="form-options">
+                    <label>
+                        <input type="checkbox" id="rememberMe" checked />
+                        Remember me
+                    </label>
+                    <a href="#forgot-password">Forgot password?</a>
+                </div>
+
+                <button type="button" class="btn-primary" onclick="handleLogin()">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </button>
+            </form>
+
+            <div class="divider">or continue with</div>
+
+            <div class="social-login">
+                <button class="btn-social" onclick="socialLogin('Google')">
+                    <i class="fab fa-google" style="color: #ea4335;"></i> Google
+                </button>
+                <button class="btn-social" onclick="socialLogin('Facebook')">
+                    <i class="fab fa-facebook" style="color: #1877f2;"></i> Facebook
+                </button>
+                <button class="btn-social" onclick="socialLogin('Apple')">
+                    <i class="fab fa-apple" style="color: #fff;"></i> Apple
+                </button>
+            </div>
+
+            <div class="register-link">
+                Don't have an account? <a href="register.html">Create one now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h4>Black-face-naija Hub</h4>
+                <p>Your music platform</p>
+                <p>© 2026</p>
+            </div>
+            <div>
+                <h4>Quick Links</h4>
+                <p>Home</p>
+                <p>Music</p>
+                <p>Videos</p>
+                <p>Artists</p>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <p>Help</p>
+                <p>Contact</p>
+                <p>FAQ</p>
+            </div>
+            <div class="social">
+                <h4>Follow Us</h4>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-youtube"></i>
+                <i class="fab fa-tiktok"></i>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Premium downloads · Paystack · Flutterwave · Stripe
+        </div>
+    </footer>
+
+    <script>
+        // ===== HANDLE LOGIN =====
+        function handleLogin() {
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const rememberMe = document.getElementById('rememberMe').checked;
+            const status = document.getElementById('loginStatus');
+
+            // Validation
+            if (!email || !password) {
+                status.className = 'login-status error';
+                status.style.display = 'block';
+                status.innerHTML = '⚠️ Please fill in both email and password.';
+                return;
+            }
+
+            // Simple email validation
+            if (!email.includes('@') || !email.includes('.')) {
+                status.className = 'login-status error';
+                status.style.display = 'block';
+                status.innerHTML = '⚠️ Please enter a valid email address.';
+                return;
+            }
+
+            // Simulate login
+            status.className = 'login-status';
+            status.style.display = 'block';
+            status.innerHTML = '⏳ Logging in... Please wait.';
+
+            // Simulate delay
+            setTimeout(() => {
+                // Demo: Accept any valid email/password
+                status.className = 'login-status success';
+                status.innerHTML = `
+                    ✅ <strong>Login Successful!</strong><br />
+                    Welcome back! You are now signed in.
+                    ${rememberMe ? ' <small>(Remember me enabled)</small>' : ''}
+                    <br /><small style="opacity:0.7;">Redirecting to your dashboard...</small>
+                `;
+
+                // Store login state
+                localStorage.setItem('melodyUser', JSON.stringify({
+                    email: email,
+                    loggedIn: true,
+                    rememberMe: rememberMe
+                }));
+
+                console.log(`✅ User logged in: ${email}`);
+
+                // Redirect after 2 seconds
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 2000);
+
+            }, 1500);
+        }
+
+        // ===== SOCIAL LOGIN =====
+        function socialLogin(provider) {
+            const status = document.getElementById('loginStatus');
+            status.className = 'login-status';
+            status.style.display = 'block';
+            status.innerHTML = `⏳ Connecting to ${provider}...`;
+
+            setTimeout(() => {
+                status.className = 'login-status success';
+                status.innerHTML = `
+                    ✅ <strong>Login Successful!</strong><br />
+                    You are now signed in with ${provider}.
+                    <br /><small style="opacity:0.7;">Redirecting...</small>
+                `;
+
+                localStorage.setItem('melodyUser', JSON.stringify({
+                    provider: provider,
+                    loggedIn: true
+                }));
+
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1500);
+            }, 1200);
+        }
+
+        // ===== FORGOT PASSWORD =====
+        document.querySelector('a[href="#forgot-password"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            const status = document.getElementById('loginStatus');
+            status.className = 'login-status';
+            status.style.display = 'block';
+            status.innerHTML = `
+                🔑 <strong>Password Reset</strong><br />
+                Please check your email for password reset instructions.
+                <br /><small style="opacity:0.7;">We'll send a reset link to your registered email.</small>
+            `;
+            setTimeout(() => {
+                status.className = 'login-status';
+                status.style.display = 'none';
+            }, 4000);
+        });
+
+        // ===== KEYBOARD SHORTCUT: ENTER TO LOGIN =====
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const form = document.getElementById('loginForm');
+                if (form.contains(e.target)) {
+                    handleLogin();
+                }
+            }
+        });
+
+        // ===== HAMBURGER =====
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('open');
+            });
+        });
+
+        // ===== CHECK IF ALREADY LOGGED IN =====
+        const savedUser = localStorage.getItem('melodyUser');
+        if (savedUser) {
+            try {
+                const user = JSON.parse(savedUser);
+                if (user.loggedIn) {
+                    console.log('👤 User already logged in:', user.email || user.provider);
+                }
+            } catch (e) {}
+        }
+
+        console.log('🔐 Melody Login Hub ready!');
+    </script>
+
+</body>
+</html>

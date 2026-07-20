@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5" />
+    <title>Black-face-naija Music Hub · Contact</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/contact.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background: #0b0b0f;
+            color: #eee;
+            scroll-behavior: smooth;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a24;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6c5ce7;
+            border-radius: 10px;
+        }
+
+        .btn-primary {
+            background: #6c5ce7;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-primary:hover {
+            background: #5a4bd1;
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(108, 92, 231, 0.4);
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 5%;
+            background: rgba(11, 11, 15, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #2a2a3a;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            font-weight: 500;
+        }
+        .nav-links a {
+            padding: 6px 0;
+            border-bottom: 2px solid transparent;
+            transition: 0.2s;
+            color: #ccc;
+        }
+        .nav-links a:hover {
+            border-bottom-color: #6c5ce7;
+            color: #fff;
+        }
+        .nav-links a.active {
+            border-bottom-color: #6c5ce7;
+            color: #fff;
+        }
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            position: relative;
+            padding: 80px 5% 70px;
+            border-radius: 0 0 40px 40px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        .hero-bg-image {
+            position: absolute;
+            inset: 0;
+            background: url('./images/contact-hero.jpg') center/cover no-repeat;
+            z-index: 0;
+            filter: brightness(0.3) saturate(0.7);
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(11, 11, 15, 0.7) 30%, rgba(108, 92, 231, 0.2) 100%);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+        }
+        .hero h1 {
+            font-size: clamp(2.8rem, 8vw, 4.8rem);
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.85;
+            max-width: 550px;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+        }
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .hero-stats span {
+            font-size: 1rem;
+            opacity: 0.9;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 18px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .hero-stats i {
+            color: #6c5ce7;
+            margin-right: 8px;
+        }
+
+        section {
+            padding: 40px 5%;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            justify-content: center;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: #aaa;
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        /* Contact Container */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Contact Info Cards */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .contact-info .info-card {
+            background: rgba(20, 20, 30, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 24px 28px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: 0.3s;
+        }
+        .contact-info .info-card:hover {
+            border-color: #6c5ce7;
+            background: rgba(108, 92, 231, 0.08);
+            transform: translateX(4px);
+        }
+        .contact-info .info-card .icon {
+            width: 52px;
+            height: 52px;
+            background: rgba(108, 92, 231, 0.15);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: #6c5ce7;
+            flex-shrink: 0;
+        }
+        .contact-info .info-card .details h4 {
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+        .contact-info .info-card .details p {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        .contact-info .info-card .details a {
+            color: #6c5ce7;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .contact-info .info-card .details a:hover {
+            color: #a29bfe;
+            text-decoration: underline;
+        }
+
+        .contact-info .social-links {
+            background: rgba(20, 20, 30, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 24px 28px;
+            margin-top: 6px;
+        }
+        .contact-info .social-links h4 {
+            color: #fff;
+            margin-bottom: 14px;
+            font-size: 1rem;
+        }
+        .contact-info .social-links .social-icons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .contact-info .social-links .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            color: #ccc;
+            font-size: 1.3rem;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+        .contact-info .social-links .social-icons a:hover {
+            background: rgba(108, 92, 231, 0.15);
+            border-color: #6c5ce7;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: rgba(20, 20, 30, 0.55);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        }
+        .contact-form h3 {
+            color: #fff;
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+        }
+        .contact-form p {
+            color: #aaa;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+        .contact-form .form-group {
+            margin-bottom: 16px;
+        }
+        .contact-form label {
+            display: block;
+            color: #ccc;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+        .contact-form label .required {
+            color: #ff6b6b;
+        }
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            background: #1a1a2a;
+            color: #fff;
+            border-radius: 14px;
+            outline: none;
+            border: 1px solid #2a2a3e;
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+        .contact-form input:focus,
+        .contact-form select:focus,
+        .contact-form textarea:focus {
+            border-color: #6c5ce7;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+        }
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .contact-form select option {
+            background: #1a1a2a;
+        }
+        .contact-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .contact-status {
+            padding: 12px 16px;
+            border-radius: 14px;
+            margin-bottom: 16px;
+            display: none;
+            font-size: 0.95rem;
+        }
+        .contact-status.success {
+            display: block;
+            background: rgba(108, 206, 119, 0.15);
+            border: 1px solid #6cce77;
+            color: #6cce77;
+        }
+        .contact-status.error {
+            display: block;
+            background: rgba(255, 107, 107, 0.15);
+            border: 1px solid #ff6b6b;
+            color: #ff6b6b;
+        }
+
+        /* Map Section */
+        .map-section {
+            margin-top: 40px;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .map-section iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            display: block;
+            filter: grayscale(0.8) invert(0.9) hue-rotate(180deg);
+        }
+
+        footer {
+            background: #0e0e16;
+            padding: 40px 5% 20px;
+            border-top: 1px solid #222;
+            margin-top: 40px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 30px;
+        }
+        .footer-grid h4 {
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .footer-grid p {
+            color: #ccc;
+            opacity: 0.7;
+            margin: 4px 0;
+        }
+        .social i {
+            font-size: 1.6rem;
+            margin-right: 16px;
+            opacity: 0.7;
+            transition: 0.2s;
+            cursor: pointer;
+            color: #ccc;
+        }
+        .social i:hover {
+            opacity: 1;
+            color: #6c5ce7;
+        }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            opacity: 0.3;
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+
+        @media (max-width: 900px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+            }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 6px;
+                margin-top: 12px;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+            }
+            .contact-form {
+                padding: 24px 18px;
+            }
+            .contact-form .form-row {
+                grid-template-columns: 1fr;
+            }
+            .hero {
+                padding: 60px 5% 50px;
+                min-height: 300px;
+            }
+            .contact-info .info-card {
+                padding: 18px 20px;
+            }
+        }
+        @media (max-width: 480px) {
+            .contact-info .info-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero {
+                padding: 40px 5% 30px;
+                min-height: 250px;
+            }
+            .map-section iframe {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAV ========== -->
+     <nav>
+        <div class="logo"><i class="fas fa-music" style="background:transparent; -webkit-text-fill-color:#6c5ce7;"></i> Black-face-naija</div>
+        <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')"><i class="fas fa-bars"></i></div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="music.html">Music</a>
+            <a href="videos.html">Videos</a>
+            <a href="albums.html">Albums</a>
+            <a href="song-details.html">Song-Details</a>
+            <a href="artists.html">Artists</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="upload.html">Upload</a>
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-actions">
+            <i class="fas fa-search" style="opacity:0.6; font-size:1.3rem; color:#fff;"></i>
+        </div>
+    </nav>
+
+
+
+
+
+    
+    <!-- ===== NAV OVERLAY ===== -->
+    <div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
+
+    <!-- ===== FLOATING BUTTONS ===== -->
+    <button class="chat-btn" aria-label="Live Chat" onclick="toggleChat()">
+        <i class="fas fa-comments"></i>
+    </button>
+
+    <a href="https://wa.me/15551234567" class="whatsapp-btn" aria-label="WhatsApp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- ========== HERO ========== -->
+    <section id="home" class="hero">
+        <div class="hero-bg-image"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>📬 Get in Touch</h1>
+            <p>Have questions, feedback, or partnership ideas? We'd love to hear from you.</p>
+            <div class="hero-stats">
+                <span><i class="fas fa-headset"></i> 24/7 support</span>
+                <span><i class="fas fa-clock"></i> Fast response</span>
+                <span><i class="fas fa-heart"></i> We care</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section id="contact">
+        <div class="section-title"><i class="fas fa-envelope" style="color:#6c5ce7;"></i> Contact Us</div>
+        <p class="section-subtitle">Reach out to us through any of the channels below or send us a message directly.</p>
+
+        <div class="contact-container">
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <div class="info-card">
+                    <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="details">
+                        <h4>Our Location</h4>
+                        <p>123 Music Avenue, Lagos, Nigeria</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="icon"><i class="fas fa-phone-alt"></i></div>
+                    <div class="details">
+                        <h4>Phone</h4>
+                        <p><a href="tel:+2348001234567">+234 800 123 4567</a></p>
+                        <p><a href="tel:+2348007654321">+234 800 765 4321</a></p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="icon"><i class="fas fa-envelope"></i></div>
+                    <div class="details">
+                        <h4>Email</h4>
+                        <p><a href="mailto:support@melodyhub.com">support@melodyhub.com</a></p>
+                        <p><a href="mailto:info@melodyhub.com">info@melodyhub.com</a></p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="icon"><i class="fas fa-clock"></i></div>
+                    <div class="details">
+                        <h4>Working Hours</h4>
+                        <p>Monday - Friday: 9:00 AM - 9:00 PM</p>
+                        <p>Saturday - Sunday: 10:00 AM - 6:00 PM</p>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <h4>Connect With Us</h4>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <p>We'll get back to you within 24 hours.</p>
+
+                <div class="contact-status" id="contactStatus"></div>
+
+                <form id="contactForm" onsubmit="return false;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Full Name <span class="required">*</span></label>
+                            <input type="text" id="fullName" placeholder="Enter your name" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" placeholder="Enter your email" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Subject <span class="required">*</span></label>
+                        <select id="subject" required>
+                            <option value="">Select a subject...</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="support">Technical Support</option>
+                            <option value="partnership">Partnership / Collaboration</option>
+                            <option value="feedback">Feedback / Suggestion</option>
+                            <option value="report">Report a Bug</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Message <span class="required">*</span></label>
+                        <textarea id="message" placeholder="Write your message here..." required></textarea>
+                    </div>
+
+                    <button type="button" class="btn-primary" onclick="handleContact()" style="width:100%; justify-content:center;">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <div class="map-section">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d253682.4851658675!2d3.116340337795404!3d6.548058769560267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8b1ae3853efd%3A0x882f09e44ef8f55e!2sLagos%2C%20Nigeria!5e0!3m2!1sen!2s!4v1700000000000" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h4>Black-face-naija Hub</h4>
+                <p>Your music platform</p>
+                <p>© 2026</p>
+            </div>
+            <div>
+                <h4>Quick Links</h4>
+                <p>Home</p>
+                <p>Music</p>
+                <p>Videos</p>
+                <p>Artists</p>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <p>Help</p>
+                <p>Contact</p>
+                <p>FAQ</p>
+            </div>
+            <div class="social">
+                <h4>Follow Us</h4>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-youtube"></i>
+                <i class="fab fa-tiktok"></i>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Premium downloads · Paystack · Flutterwave · Stripe
+        </div>
+    </footer>
+
+    <script>
+        // ===== HANDLE CONTACT FORM =====
+        function handleContact() {
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value.trim();
+            const status = document.getElementById('contactStatus');
+
+            // Validation
+            if (!fullName || !email || !subject || !message) {
+                status.className = 'contact-status error';
+                status.style.display = 'block';
+                status.innerHTML = '⚠️ Please fill in all required fields.';
+                return;
+            }
+
+            if (fullName.length < 2) {
+                status.className = 'contact-status error';
+                status.style.display = 'block';
+                status.innerHTML = '⚠️ Name must be at least 2 characters.';
+                return;
+            }
+
+            if (!email.includes('@') || !email.includes('.')) {
+                status.className = 'contact-status error';
+                status.style.display = 'block';
+                status.innerHTML = '⚠️ Please enter a valid email address.';
+                return;
+            }
+
+            if (message.length < 10) {
+                status.className = 'contact-status error';
+                status.style.display = 'block';
+                status.innerHTML = '⚠️ Message must be at least 10 characters.';
+                return;
+            }
+
+            // Simulate sending
+            status.className = 'contact-status';
+            status.style.display = 'block';
+            status.innerHTML = '⏳ Sending your message... Please wait.';
+
+            setTimeout(() => {
+                status.className = 'contact-status success';
+                status.innerHTML = `
+                    ✅ <strong>Message Sent!</strong><br />
+                    Thank you ${fullName}! We'll get back to you within 24 hours.
+                    <br /><small style="opacity:0.7;">Your message has been received.</small>
+                `;
+
+                // Log to console
+                console.log('📬 Contact form submitted:', {
+                    name: fullName,
+                    email: email,
+                    subject: subject,
+                    message: message
+                });
+
+                // Reset form
+                document.getElementById('fullName').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('subject').value = '';
+                document.getElementById('message').value = '';
+
+                // Hide status after 5 seconds
+                setTimeout(() => {
+                    status.className = 'contact-status';
+                    status.style.display = 'none';
+                }, 5000);
+
+            }, 1500);
+        }
+
+        // ===== KEYBOARD SHORTCUT: ENTER TO SEND =====
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const form = document.getElementById('contactForm');
+                if (form.contains(e.target) && e.target.tagName !== 'TEXTAREA') {
+                    handleContact();
+                }
+            }
+        });
+
+        // ===== HAMBURGER =====
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('open');
+            });
+        });
+
+        console.log('📬 Melody Contact Hub ready!');
+    </script>
+
+</body>
+</html>
