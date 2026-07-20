@@ -59,12 +59,20 @@
             z-index: 99;
         }
         .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+}
+        /* .logo {
             font-size: 1.8rem;
             font-weight: 700;
             background: linear-gradient(135deg, #a29bfe, #6c5ce7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
+        } */
         .nav-links {
             display: flex;
             flex-wrap: wrap;
@@ -444,7 +452,7 @@
 
     <!-- ========== NAV ========== -->
     <nav>
-        <div class="logo"><i class="fas fa-music" style="background:transparent; -webkit-text-fill-color:#6c5ce7;"></i> Black-face-naija</div>
+        <div class="logo"><i class="fas fa-music" style="background:transparent; background-clip: unset; -webkit-text-fill-color:#6c5ce7;"></i> Black-face-naija</div>
         <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')"><i class="fas fa-bars"></i></div>
         <div class="nav-links">
             <a href="index.html" class="active">Home</a>
